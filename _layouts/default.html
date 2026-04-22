@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+  <!-- Google Fonts: Hind Madurai + Noto Sans Tamil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --news-red:       #b71c1c;
+      --news-red-dark:  #7f0000;
+      --news-red-light: #ef5350;
+      --news-accent:    #ff6f00;
+      --news-gold:      #ffc107;
+      --text-primary:   #1a1a1a;
+      --text-secondary: #444;
+      --text-muted:     #888;
+      --bg-main:        #f0f0f0;
+      --bg-card:        #ffffff;
+      --border-card:    #e0e0e0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hind Madurai', 'Noto Sans Tamil', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ── TOP BAR ─────────────────────────── */
+    .top-bar {
+      background: var(--news-red-dark);
+      color: #fff;
+      font-size: 12px;
+      padding: 5px 0;
+    }
+    .top-bar a { color: #ffcdd2; text-decoration: none; }
+    .top-bar a:hover { color: #fff; }
+    .top-bar .sep { margin: 0 10px; opacity: 0.35; }
+
+    /* ── HEADER ──────────────────────────── */
+    .site-header {
+      background: var(--news-red);
+      box-shadow: 0 3px 14px rgba(0,0,0,.4);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+    .navbar-brand-wrap { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-title {
+      font-family: 'Noto Sans Tamil', 'Hind Madurai', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .brand-tagline {
+      font-size: 10px;
+      color: #ffcdd2;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+    .site-header .nav-link {
+      color: rgba(255,255,255,.9) !important;
+      font-size: 13.5px;
+      font-weight: 600;
+      padding: 7px 13px !important;
+      border-radius: 3px;
+      transition: background .15s;
+    }
+    .site-header .nav-link:hover,
+    .site-header .nav-link.active {
+      background: rgba(255,255,255,.18);
+      color: #fff !important;
+    }
+    .navbar-toggler { border-color: rgba(255,255,255,.5); }
+    .navbar-toggler-icon { filter: invert(1); }
+
+    .header-search .form-control {
+      border-radius: 20px 0 0 20px;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+    }
+    .header-search .btn {
+      border-radius: 0 20px 20px 0;
+      background: var(--news-gold);
+      border: none;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+
+    /* ── TICKER ──────────────────────────── */
+    .ticker-bar {
+      background: #111;
+      color: #f0f0f0;
+      font-size: 13.5px;
+      padding: 7px 0;
+      overflow: hidden;
+      border-bottom: 3px solid var(--news-red);
+    }
+    .ticker-label {
+      background: var(--news-red);
+      color: #fff;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 3px 18px 3px 10px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      clip-path: polygon(0 0,88% 0,100% 50%,88% 100%,0 100%);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .ticker-wrapper { overflow: hidden; flex: 1; }
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: scroll-ticker 30s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { flex-shrink: 0; padding-right: 48px; }
+    .ticker-item::after { content: '◆'; margin-left: 48px; opacity: .3; font-size: 9px; }
+    @keyframes scroll-ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION HEADING ─────────────────── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .section-heading h2, .section-heading h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--news-red);
+      margin: 0;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--news-red), transparent);
+    }
+
+    /* ── MAIN ────────────────────────────── */
+    main { padding: 28px 0 56px; min-height: 70vh; }
+
+    /* ── FOOTER ──────────────────────────── */
+    .site-footer {
+      background: #1a1a1a;
+      color: #aaa;
+      font-size: 13.5px;
+      padding: 44px 0 0;
+    }
+    .site-footer h5 {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--news-red);
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+    .site-footer a { color: #999; text-decoration: none; transition: color .15s; }
+    .site-footer a:hover { color: var(--news-red-light); }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #2e2e2e;
+      color: #bbb !important;
+      font-size: 15px;
+      margin-right: 6px;
+      transition: background .15s;
+    }
+    .footer-social a:hover { background: var(--news-red); color: #fff !important; }
+    .footer-bottom {
+      background: #111;
+      margin-top: 32px;
+      padding: 12px 0;
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+    }
+
+    @media (max-width: 767px) {
+      .brand-title { font-size: 1.35rem; }
+      main { padding-top: 18px; }
+      .top-bar { display: none !important; }
+    }
+  </style>
+
+  {% feed_meta %}
+  {% seo %}
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span>
+        <i class="bi bi-calendar3 me-1"></i>
+        <span id="todayDate"></span>
+      </span>
+      <span>
+        <a href="#"><i class="bi bi-facebook me-1"></i>Facebook</a>
+        <span class="sep">|</span>
+        <a href="#"><i class="bi bi-twitter-x me-1"></i>Twitter</a>
+        <span class="sep">|</span>
+        <a href="#"><i class="bi bi-youtube me-1"></i>YouTube</a>
+        <span class="sep">|</span>
+        <a href="/feed.xml"><i class="bi bi-rss me-1"></i>RSS</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg py-2">
+      <div class="container">
+        <a class="navbar-brand" href="{{ '/' | relative_url }}">
+          <div class="navbar-brand-wrap">
+            <span class="brand-title">{{ site.title | default: "தமிழ் செய்திகள்" }}</span>
+            <span class="brand-tagline">{{ site.tagline | default: "Tamil News Portal" }}</span>
+          </div>
+        </a>
+
+        <button class="navbar-toggler ms-auto me-2" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <form class="header-search d-none d-lg-flex me-3" role="search" action="/search" method="get">
+          <input class="form-control form-control-sm" type="search" name="q" placeholder="தேடுங்கள்..." style="width:175px">
+          <button class="btn btn-sm" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-1">
+            <li class="nav-item"><a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}"><i class="bi bi-house-fill me-1"></i>முகப்பு</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ '/categories/politics' | relative_url }}">அரசியல்</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ '/categories/sports' | relative_url }}">விளையாட்டு</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ '/categories/cinema' | relative_url }}">சினிமா</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ '/categories/business' | relative_url }}">வணிகம்</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ '/about' | relative_url }}">எங்களை பற்றி</a></li>
+          </ul>
+          <form class="header-search d-flex d-lg-none mt-2" role="search" action="/search" method="get">
+            <input class="form-control form-control-sm" type="search" name="q" placeholder="தேடுங்கள்...">
+            <button class="btn btn-sm" type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- TRENDING TICKER -->
+  <div class="ticker-bar">
+    <div class="container d-flex align-items-center" style="overflow:hidden;">
+      <div class="ticker-label">
+        <i class="bi bi-lightning-fill"></i> TRENDING
+      </div>
+      <div class="ticker-wrapper">
+        <div class="ticker-track">
+          <span class="ticker-item">தமிழகத்தில் இன்றைய முக்கிய செய்திகள்</span>
+          <span class="ticker-item">சட்டமன்றத்தில் புதிய மசோதா தாக்கல் செய்யப்பட்டது</span>
+          <span class="ticker-item">சென்னையில் கனமழை எச்சரிக்கை விடுக்கப்பட்டது</span>
+          <span class="ticker-item">இந்திய பங்குசந்தை புதிய உச்சத்தை தொட்டது</span>
+          <span class="ticker-item">விளையாட்டு செய்திகள்: இந்தியா அணி வெற்றி</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="ticker-item">தமிழகத்தில் இன்றைய முக்கிய செய்திகள்</span>
+          <span class="ticker-item">சட்டமன்றத்தில் புதிய மசோதா தாக்கல் செய்யப்பட்டது</span>
+          <span class="ticker-item">சென்னையில் கனமழை எச்சரிக்கை விடுக்கப்பட்டது</span>
+          <span class="ticker-item">இந்திய பங்குசந்தை புதிய உச்சத்தை தொட்டது</span>
+          <span class="ticker-item">விளையாட்டு செய்திகள்: இந்தியா அணி வெற்றி</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <main>
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <h5>{{ site.title | default: "தமிழ் செய்திகள்" }}</h5>
+          <p style="font-size:13px;">{{ site.description | default: "நம்பகமான தமிழ் செய்தி தளம். அரசியல், விளையாட்டு, சினிமா மற்றும் வணிக செய்திகளை உடனுக்குடன் வழங்குகிறோம்." }}</p>
+          <div class="footer-social mt-3">
+            <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" title="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="/feed.xml" title="RSS"><i class="bi bi-rss"></i></a>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <h5>பிரிவுகள்</h5>
+          <ul class="list-unstyled">
+            <li><a href="/categories/politics">அரசியல்</a></li>
+            <li><a href="/categories/sports">விளையாட்டு</a></li>
+            <li><a href="/categories/cinema">சினிமா</a></li>
+            <li><a href="/categories/business">வணிகம்</a></li>
+            <li><a href="/categories/technology">தொழில்நுட்பம்</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <h5>தகவல்</h5>
+          <ul class="list-unstyled">
+            <li><a href="/about">எங்களை பற்றி</a></li>
+            <li><a href="/contact">தொடர்பு</a></li>
+            <li><a href="/privacy-policy">தனியுரிமை</a></li>
+            <li><a href="/disclaimer">மறுப்பு</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <h5>சமீபத்திய செய்திகள்</h5>
+          <ul class="list-unstyled" style="font-size:13px;">
+            {% for post in site.posts limit:4 %}
+            <li class="mb-2 pb-2" style="border-bottom:1px solid #2e2e2e;">
+              <a href="{{ post.url | relative_url }}">
+                <span style="color:var(--news-red-light); font-size:11px;">{{ post.date | date: "%d %b %Y" }}</span><br>
+                {{ post.title | truncatewords: 9 }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; {{ site.time | date: '%Y' }} {{ site.title }}. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
+      Built with Jekyll &amp; Bootstrap 5.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Live date in Tamil
+    const d = new Date();
+    const el = document.getElementById('todayDate');
+    if (el) el.textContent = d.toLocaleDateString('ta-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  </script>
+</body>
+</html>

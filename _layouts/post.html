@@ -1,0 +1,575 @@
+---
+layout: default
+---
+
+<style>
+  /* ── ARTICLE ─────────────────────────────────────── */
+  .article-wrap {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.09);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .article-header { padding: 24px 28px 0; }
+
+  /* Breadcrumb */
+  .article-breadcrumb {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .article-breadcrumb a { color: var(--news-red); text-decoration: none; }
+  .article-breadcrumb a:hover { text-decoration: underline; }
+  .article-breadcrumb .sep { margin: 0 6px; opacity: .4; }
+
+  /* Category badge */
+  .article-category {
+    display: inline-block;
+    background: var(--news-red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+    text-decoration: none;
+  }
+  .article-category:hover { background: var(--news-red-dark); color: #fff; }
+
+  /* Main headline */
+  .article-title {
+    font-family: 'Noto Sans Tamil', 'Hind Madurai', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 900;
+    line-height: 1.4;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    border-left: 5px solid var(--news-red);
+    padding-left: 14px;
+  }
+
+  /* Sub-headline / excerpt */
+  .article-deck {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-weight: 500;
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    background: #fafafa;
+    border-left: 3px solid var(--news-gold);
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* Meta bar */
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .article-meta i { color: var(--news-red); }
+  .article-meta .author-name { font-weight: 700; color: var(--text-primary); }
+
+  /* Hero image */
+  .article-hero-img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+    margin: 20px 0 0;
+  }
+  .article-hero-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 6px 28px;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+    font-style: italic;
+  }
+
+  /* ── SHARE BAR ────────────────────────────────────── */
+  .share-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: #f8f8f8;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .share-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+  }
+  .share-btn:hover { opacity: .85; transform: translateY(-1px); }
+  .share-btn:active { transform: translateY(0); }
+  .share-fb   { background: #1877f2; color: #fff; }
+  .share-tw   { background: #000; color: #fff; }
+  .share-wa   { background: #25d366; color: #fff; }
+  .share-tg   { background: #229ed9; color: #fff; }
+  .share-copy { background: #eee; color: #333; }
+  .share-print{ background: #555; color: #fff; }
+
+  /* ── ARTICLE BODY ─────────────────────────────────── */
+  .article-body {
+    padding: 24px 28px 28px;
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+  .article-body p { margin-bottom: 1.2em; }
+  .article-body h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 1.6em 0 .7em;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--news-red);
+  }
+  .article-body h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 1.4em 0 .6em;
+  }
+  .article-body blockquote {
+    border-left: 4px solid var(--news-red);
+    margin: 1.4em 0;
+    padding: 12px 20px;
+    background: #fff8f8;
+    border-radius: 0 3px 3px 0;
+    font-style: italic;
+    color: var(--text-primary);
+    font-size: 1.05rem;
+  }
+  .article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+    margin: 1em 0;
+  }
+  .article-body a { color: var(--news-red); text-decoration: underline; }
+  .article-body a:hover { color: var(--news-red-dark); }
+  .article-body ul, .article-body ol {
+    padding-left: 1.5em;
+    margin-bottom: 1.2em;
+  }
+  .article-body li { margin-bottom: .4em; }
+
+  /* Tags */
+  .article-tags {
+    padding: 0 28px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .article-tags .tags-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+  .tag-pill {
+    display: inline-block;
+    padding: 3px 11px;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+    transition: background .14s;
+  }
+  .tag-pill:hover { background: var(--news-red); color: #fff; border-color: var(--news-red); }
+
+  /* ── RELATED POSTS ────────────────────────────────── */
+  .related-card {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    border-bottom: 3px solid var(--news-red);
+    box-shadow: 0 1px 5px rgba(0,0,0,.07);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .18s, transform .18s;
+  }
+  .related-card:hover { box-shadow: 0 5px 18px rgba(0,0,0,.14); transform: translateY(-2px); }
+  .related-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+  .related-img-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 1.8rem;
+  }
+  .related-body { padding: 12px 14px; flex: 1; }
+  .related-title {
+    font-family: 'Noto Sans Tamil', 'Hind Madurai', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .related-title:hover { color: var(--news-red); }
+  .related-date { font-size: 11.5px; color: var(--text-muted); }
+
+  /* ── SIDEBAR ─────────────────────────────────────── */
+  .sidebar-widget {
+    background: #fff;
+    border-radius: 4px;
+    border-top: 3px solid var(--news-red);
+    box-shadow: 0 1px 6px rgba(0,0,0,.08);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .sidebar-widget-title {
+    background: var(--news-red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    margin: 0;
+  }
+  .sidebar-list { list-style: none; margin: 0; padding: 0; }
+  .sidebar-list li { border-bottom: 1px solid #f5f5f5; }
+  .sidebar-list li:last-child { border-bottom: none; }
+  .sidebar-list-item {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    padding: 11px 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: background .12s;
+  }
+  .sidebar-list-item:hover { background: #fafafa; }
+  .sidebar-list-num {
+    width: 22px; height: 22px; min-width: 22px;
+    background: var(--news-red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .sidebar-list-title { font-size: 13.5px; font-weight: 600; line-height: 1.5; color: var(--text-primary); }
+  .sidebar-list-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── PREV/NEXT NAV ────────────────────────────────── */
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .post-nav-link {
+    background: #fff;
+    border-radius: 4px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    border-top: 3px solid var(--news-red);
+    box-shadow: 0 1px 5px rgba(0,0,0,.07);
+    font-size: 13px;
+    transition: box-shadow .15s;
+  }
+  .post-nav-link:hover { box-shadow: 0 4px 14px rgba(0,0,0,.13); color: inherit; }
+  .post-nav-dir { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--news-red); margin-bottom: 4px; }
+  .post-nav-title { font-weight: 700; line-height: 1.5; color: var(--text-primary); }
+  .post-nav-link.next { text-align: right; }
+  @media (max-width: 575px) {
+    .post-nav { grid-template-columns: 1fr; }
+    .article-header, .article-body, .share-bar, .article-tags { padding-left: 16px; padding-right: 16px; }
+    .article-hero-caption { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+
+<div class="row g-4">
+
+  <!-- ════ ARTICLE COLUMN ══════════════════════════════ -->
+  <div class="col-12 col-lg-8">
+    <article class="article-wrap">
+
+      <!-- Header -->
+      <div class="article-header">
+        <!-- Breadcrumb -->
+        <div class="article-breadcrumb">
+          <a href="{{ '/' | relative_url }}"><i class="bi bi-house-fill"></i> முகப்பு</a>
+          <span class="sep">/</span>
+          {% if page.categories.first %}
+            <a href="{{ '/categories/' | append: page.categories.first | relative_url }}">{{ page.categories.first }}</a>
+            <span class="sep">/</span>
+          {% endif %}
+          <span>{{ page.title | truncatewords: 7 }}</span>
+        </div>
+
+        <!-- Category -->
+        {% if page.categories.first %}
+          <a href="{{ '/categories/' | append: page.categories.first | relative_url }}" class="article-category">
+            {{ page.categories.first }}
+          </a>
+        {% endif %}
+
+        <!-- Title -->
+        <h1 class="article-title">{{ page.title }}</h1>
+
+        <!-- Sub-headline -->
+        {% if page.excerpt %}
+          <div class="article-deck">{{ page.excerpt | strip_html | truncatewords: 35 }}</div>
+        {% endif %}
+
+        <!-- Meta -->
+        <div class="article-meta">
+          <span><i class="bi bi-calendar3"></i> {{ page.date | date: "%d %B %Y" }}</span>
+          {% if page.author %}
+            <span><i class="bi bi-person-fill"></i> <span class="author-name">{{ page.author }}</span></span>
+          {% endif %}
+          {% if page.categories.first %}
+            <span><i class="bi bi-tag-fill"></i> {{ page.categories | join: ', ' }}</span>
+          {% endif %}
+          <span class="ms-auto" style="font-size:11px;">
+            <i class="bi bi-eye"></i> படிக்க அனுமதி
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero Image -->
+      {% if page.image %}
+        <img src="{{ page.image }}" alt="{{ page.title }}" class="article-hero-img" loading="lazy">
+        {% if page.image_caption %}
+          <div class="article-hero-caption">{{ page.image_caption }}</div>
+        {% endif %}
+      {% endif %}
+
+      <!-- Top Share Bar -->
+      <div class="share-bar">
+        <span class="share-label"><i class="bi bi-share-fill"></i> பகிர்:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-fb">
+          <i class="bi bi-facebook"></i> <span class="d-none d-sm-inline">Facebook</span>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" class="share-btn share-tw">
+          <i class="bi bi-twitter-x"></i> <span class="d-none d-sm-inline">Twitter</span>
+        </a>
+        <a href="https://wa.me/?text={{ page.title | url_encode }}%20{{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-wa">
+          <i class="bi bi-whatsapp"></i> <span class="d-none d-sm-inline">WhatsApp</span>
+        </a>
+        <a href="https://t.me/share/url?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" class="share-btn share-tg">
+          <i class="bi bi-telegram"></i> <span class="d-none d-sm-inline">Telegram</span>
+        </a>
+        <button class="share-btn share-copy" onclick="navigator.clipboard.writeText(window.location.href); this.innerHTML='<i class=\'bi bi-check-lg\'></i> நகலெடுக்கப்பட்டது';" title="URL நகலெடு">
+          <i class="bi bi-link-45deg"></i> <span class="d-none d-sm-inline">நகலெடு</span>
+        </button>
+        <button class="share-btn share-print d-none d-md-inline-flex" onclick="window.print()">
+          <i class="bi bi-printer-fill"></i>
+        </button>
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body">
+        {{ content }}
+      </div>
+
+      <!-- Tags -->
+      {% if page.tags.size > 0 %}
+      <div class="article-tags">
+        <span class="tags-label"><i class="bi bi-tags-fill"></i> குறிச்சொற்கள்:</span>
+        {% for tag in page.tags %}
+          <a href="{{ '/tags/' | append: tag | relative_url }}" class="tag-pill">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Bottom Share Bar -->
+      <div class="share-bar">
+        <span class="share-label"><i class="bi bi-share-fill"></i> இதை பகிருங்கள்:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-fb">
+          <i class="bi bi-facebook"></i> Facebook
+        </a>
+        <a href="https://wa.me/?text={{ page.title | url_encode }}%20{{ page.url | absolute_url | url_encode }}" target="_blank" rel="noopener" class="share-btn share-wa">
+          <i class="bi bi-whatsapp"></i> WhatsApp
+        </a>
+        <a href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}" target="_blank" rel="noopener" class="share-btn share-tw">
+          <i class="bi bi-twitter-x"></i> Twitter
+        </a>
+      </div>
+
+    </article><!-- /article-wrap -->
+
+    <!-- PREV / NEXT -->
+    <div class="post-nav mb-4">
+      {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-link prev">
+          <div class="post-nav-dir"><i class="bi bi-chevron-left"></i> முந்தைய செய்தி</div>
+          <div class="post-nav-title">{{ page.previous.title | truncatewords: 10 }}</div>
+        </a>
+      {% else %}
+        <div></div>
+      {% endif %}
+      {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-link next">
+          <div class="post-nav-dir">அடுத்த செய்தி <i class="bi bi-chevron-right"></i></div>
+          <div class="post-nav-title">{{ page.next.title | truncatewords: 10 }}</div>
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- RELATED POSTS -->
+    {% assign related = site.posts | where_exp: "post", "post.url != page.url" | limit: 3 %}
+    {% if related.size > 0 %}
+    <div class="section-heading">
+      <h2><i class="bi bi-collection-fill me-1" style="font-size:.8rem"></i> தொடர்புடைய செய்திகள்</h2>
+    </div>
+    <div class="row g-3 mb-4">
+      {% for post in related %}
+      <div class="col-12 col-sm-4">
+        <div class="related-card">
+          {% if post.image %}
+            <img src="{{ post.image }}" alt="{{ post.title }}" class="related-img" loading="lazy">
+          {% else %}
+            <div class="related-img-placeholder"><i class="bi bi-newspaper"></i></div>
+          {% endif %}
+          <div class="related-body">
+            <a href="{{ post.url | relative_url }}" class="related-title">{{ post.title | truncatewords: 10 }}</a>
+            <div class="related-date"><i class="bi bi-calendar3"></i> {{ post.date | date: "%d %b %Y" }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div><!-- /article column -->
+
+  <!-- ════ SIDEBAR ════════════════════════════════════ -->
+  <div class="col-12 col-lg-4">
+
+    <!-- Recent News -->
+    <div class="sidebar-widget">
+      <div class="sidebar-widget-title">
+        <i class="bi bi-clock-history me-1"></i> சமீபத்திய செய்திகள்
+      </div>
+      <ul class="sidebar-list">
+        {% for post in site.posts limit:8 %}
+          {% unless post.url == page.url %}
+          <li>
+            <a href="{{ post.url | relative_url }}" class="sidebar-list-item">
+              <span class="sidebar-list-num">{{ forloop.index }}</span>
+              <span>
+                <div class="sidebar-list-title">{{ post.title | truncatewords: 10 }}</div>
+                <div class="sidebar-list-date"><i class="bi bi-clock"></i> {{ post.date | date: "%d %b %Y" }}</div>
+              </span>
+            </a>
+          </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Popular Categories -->
+    <div class="sidebar-widget">
+      <div class="sidebar-widget-title">
+        <i class="bi bi-tag-fill me-1"></i> பிரிவுகள்
+      </div>
+      <div class="p-3">
+        {% assign all_cats = site.posts | map: 'categories' | join: ',' | split: ',' | uniq | sort %}
+        {% for cat in all_cats %}
+          {% unless cat == '' %}
+            <a href="{{ '/categories/' | append: cat | relative_url }}" style="display:inline-block; margin:3px 3px 3px 0; padding:3px 11px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:20px; font-size:12px; color:#555; text-decoration:none; transition:background .14s;" onmouseover="this.style.background='#b71c1c'; this.style.color='#fff';" onmouseout="this.style.background='#f5f5f5'; this.style.color='#555';">{{ cat }}</a>
+          {% endunless %}
+        {% endfor %}
+        {% if all_cats.size == 0 %}
+          <a href="#" style="display:inline-block; margin:3px; padding:3px 11px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:20px; font-size:12px; color:#555; text-decoration:none;">அரசியல்</a>
+          <a href="#" style="display:inline-block; margin:3px; padding:3px 11px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:20px; font-size:12px; color:#555; text-decoration:none;">விளையாட்டு</a>
+          <a href="#" style="display:inline-block; margin:3px; padding:3px 11px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:20px; font-size:12px; color:#555; text-decoration:none;">சினிமா</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="sidebar-widget">
+      <div class="sidebar-widget-title">
+        <i class="bi bi-envelope-fill me-1"></i> செய்தி அறிவிப்பு
+      </div>
+      <div class="p-3">
+        <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">தினசரி செய்திகளை உங்கள் மின்னஞ்சலில் பெறுங்கள்.</p>
+        <div class="input-group input-group-sm">
+          <input type="email" class="form-control" placeholder="உங்கள் மின்னஞ்சல்...">
+          <button class="btn btn-danger" type="button" style="font-size:12px; font-weight:700;"><i class="bi bi-check-lg"></i> சேர்</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social follow -->
+    <div class="sidebar-widget">
+      <div class="sidebar-widget-title">
+        <i class="bi bi-people-fill me-1"></i> எங்களை தொடர்க
+      </div>
+      <div class="p-3">
+        <div class="d-grid gap-2">
+          <a href="#" class="btn btn-sm" style="background:#1877f2; color:#fff; font-size:13px; font-weight:700; border-radius:3px;">
+            <i class="bi bi-facebook me-2"></i> Facebook-ல் தொடரவும்
+          </a>
+          <a href="#" class="btn btn-sm" style="background:#000; color:#fff; font-size:13px; font-weight:700; border-radius:3px;">
+            <i class="bi bi-twitter-x me-2"></i> Twitter-ல் தொடரவும்
+          </a>
+          <a href="#" class="btn btn-sm" style="background:#ff0000; color:#fff; font-size:13px; font-weight:700; border-radius:3px;">
+            <i class="bi bi-youtube me-2"></i> YouTube-ல் Subscribe
+          </a>
+          <a href="#" class="btn btn-sm" style="background:#229ed9; color:#fff; font-size:13px; font-weight:700; border-radius:3px;">
+            <i class="bi bi-telegram me-2"></i> Telegram Channel
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+
+</div><!-- /row -->

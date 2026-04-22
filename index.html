@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GokulRecap — தமிழ் செய்திகள்</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ========= TOP BAR ========= -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-date" id="topbarDate"></span>
+    <span class="topbar-divider">|</span>
+    <span class="topbar-weather" id="topbarWeather">
+      <span class="weather-icon">⏳</span> இடம் கண்டறிகிறது...
+    </span>
+  </div>
+  <div class="topbar-right">
+    <span class="visitor-badge">
+      <span class="visitor-dot"></span>
+      பார்வையாளர்கள்: <strong id="visitorCount">0</strong>
+    </span>
+    <button class="btn-login" id="loginBtn" onclick="openLoginModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      உள்நுழைய
+    </button>
+    <div class="user-info hidden" id="userInfo">
+      <span class="user-avatar" id="userAvatar">G</span>
+      <span id="userName">பயனர்</span>
+      <button class="btn-logout" onclick="logout()">வெளியேறு</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= HEADER ========= -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-icon">GR</div>
+      <div class="logo-text">
+        <span class="logo-main">GokulRecap</span>
+        <span class="logo-tagline">உண்மையான செய்திகள் · தாமதமின்றி</span>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="mainNav">
+      <a href="#" class="nav-link active">முகப்பு</a>
+      <a href="#" class="nav-link">தமிழ்நாடு</a>
+      <a href="#" class="nav-link">இந்தியா</a>
+      <a href="#" class="nav-link">உலகம்</a>
+      <a href="#" class="nav-link">விளையாட்டு</a>
+      <a href="#" class="nav-link">தொழில்நுட்பம்</a>
+      <a href="#" class="nav-link">திரைச்செய்தி</a>
+    </nav>
+    <div class="header-search">
+      <input type="text" placeholder="தேடுக..." class="search-input" />
+      <button class="search-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ========= TICKER ========= -->
+<div class="ticker-wrap">
+  <div class="ticker-label">🔴 LIVE</div>
+  <div class="ticker-track">
+    <div class="ticker-inner" id="tickerInner">
+      <span>தமிழகத்தில் வெப்பநிலை 40°C தாண்டியது — IMD எச்சரிக்கை</span>
+      <span>நாடாளுமன்ற கூட்டத்தொடர்: முக்கிய மசோதாக்கள் நிறைவேறின</span>
+      <span>IPL 2025: சென்னை 8 விக்கெட்டுகளால் வெற்றி</span>
+      <span>பங்குச்சந்தை: Sensex 500 புள்ளிகள் உயர்வு</span>
+      <span>AI தொழில்நுட்பம்: Google புதிய மாடல் அறிமுகம்</span>
+      <span>திரைப்படம்: பிக் பட்ஜெட் படத்தின் ரிலீஸ் தேதி அறிவிப்பு</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========= HERO SECTION ========= -->
+<section class="hero-section">
+  <div class="hero-grid">
+
+    <!-- Main Hero Post -->
+    <article class="hero-main">
+      <div class="hero-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80" alt="Hero News" class="hero-img" />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <span class="tag tag-red">முக்கிய செய்தி</span>
+        <h1 class="hero-title">தமிழகத்தில் புதிய தொழில் கொள்கை: 50,000 வேலைவாய்ப்புகள் உருவாக உள்ளன</h1>
+        <p class="hero-excerpt">மாநில அரசு அறிவித்த புதிய தொழில் கொள்கையின்படி, அடுத்த மூன்று ஆண்டுகளில் 50,000 நேரடி வேலைவாய்ப்புகள் உருவாக்கப்படும் என முதலமைச்சர் தெரிவித்தார்.</p>
+        <div class="hero-meta">
+          <span class="meta-author">GokulRecap Reporter</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-time">2 மணி நேரம் முன்பு</span>
+          <span class="meta-dot">·</span>
+          <span class="meta-read">5 நிமிட வாசிப்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Weather Widget -->
+    <div class="weather-widget" id="weatherWidget">
+      <div class="weather-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span id="weatherCity">இடம் கண்டறிகிறது...</span>
+      </div>
+      <div class="weather-main">
+        <div class="weather-temp" id="weatherTemp">--°</div>
+        <div class="weather-icon-big" id="weatherEmoji">⏳</div>
+      </div>
+      <div class="weather-desc" id="weatherDesc">தரவு பெறப்படுகிறது</div>
+      <div class="weather-details" id="weatherDetails">
+        <div class="weather-stat"><span>💧 ஈரப்பதம்</span><strong id="wHumidity">--%</strong></div>
+        <div class="weather-stat"><span>💨 காற்று</span><strong id="wWind">-- km/h</strong></div>
+        <div class="weather-stat"><span>👁 தெரிவு</span><strong id="wVis">-- km</strong></div>
+      </div>
+      <div class="weather-note">Open-Meteo மூலம்</div>
+    </div>
+
+    <!-- Side Stories -->
+    <div class="hero-side">
+      <article class="side-story" onclick="openArticleModal(this)" data-title="டெல்லியில் அரசியல் கட்சிகள் கூட்டணி பேச்சுவார்த்தை" data-content="நாடாளுமன்ற தேர்தல் நெருங்கும் நிலையில், பல்வேறு அரசியல் கட்சிகள் கூட்டணி அமைக்கும் பேச்சுவார்த்தையில் ஈடுபட்டுள்ளன. உத்தரப்பிரதேசம், பீகார் மாநிலங்களில் சீட் பங்கீடு குறித்த விவாதங்கள் தீவிரமடைந்துள்ளன.">
+        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400&q=80" alt="" class="side-img" />
+        <div class="side-content">
+          <span class="tag tag-blue">அரசியல்</span>
+          <h3>டெல்லியில் அரசியல் கட்சிகள் கூட்டணி பேச்சுவார்த்தை</h3>
+          <span class="side-time">4 மணி முன்பு</span>
+        </div>
+      </article>
+      <article class="side-story" onclick="openArticleModal(this)" data-title="விலைவாசி உயர்வு: பொருளாதார நிபுணர்கள் கவலை" data-content="கடந்த மாதத்தில் உணவுப் பொருட்களின் விலை 8% அதிகரித்துள்ளது. குறிப்பாக தக்காளி, வெங்காயம் மற்றும் உருளைக்கிழங்கு விலைகள் வரலாறு காணாத உயர்வை எட்டியுள்ளன.">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80" alt="" class="side-img" />
+        <div class="side-content">
+          <span class="tag tag-yellow">பொருளாதாரம்</span>
+          <h3>விலைவாசி உயர்வு: பொருளாதார நிபுணர்கள் கவலை</h3>
+          <span class="side-time">6 மணி முன்பு</span>
+        </div>
+      </article>
+      <article class="side-story" onclick="openArticleModal(this)" data-title="ISRO சந்திரயான்-4 திட்டம் இறுதி கட்டம்" data-content="இந்திய விண்வெளி ஆராய்ச்சி நிறுவனம் (ISRO) சந்திரயான்-4 திட்டத்தை 2026ல் அறிமுகப்படுத்த திட்டமிட்டுள்ளது. இந்த முறை நிலா மண் மாதிரிகளை பூமிக்கு கொண்டு வருவது முக்கிய இலக்காக உள்ளது.">
+        <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&q=80" alt="" class="side-img" />
+        <div class="side-content">
+          <span class="tag tag-green">விஞ்ஞானம்</span>
+          <h3>ISRO சந்திரயான்-4 திட்டம் இறுதி கட்டம்</h3>
+          <span class="side-time">8 மணி முன்பு</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========= STATS TABLE SECTION ========= -->
+<section class="section-wrap">
+  <div class="section-header">
+    <h2 class="section-title">📊 இன்றைய முக்கிய தரவுகள்</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>பங்கு / பொருட்கள்</th>
+          <th>தற்போதைய விலை</th>
+          <th>மாற்றம்</th>
+          <th>% மாற்றம்</th>
+          <th>நிலை</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BSE Sensex</strong></td>
+          <td>₹78,450</td>
+          <td class="up">▲ +512</td>
+          <td class="up">+0.66%</td>
+          <td><span class="badge badge-up">உயர்வு</span></td>
+        </tr>
+        <tr>
+          <td><strong>NSE Nifty 50</strong></td>
+          <td>₹23,720</td>
+          <td class="up">▲ +143</td>
+          <td class="up">+0.61%</td>
+          <td><span class="badge badge-up">உயர்வு</span></td>
+        </tr>
+        <tr>
+          <td><strong>தங்கம் (10 கிராம்)</strong></td>
+          <td>₹74,200</td>
+          <td class="down">▼ -180</td>
+          <td class="down">-0.24%</td>
+          <td><span class="badge badge-down">இறக்கம்</span></td>
+        </tr>
+        <tr>
+          <td><strong>வெள்ளி (1 கிலோ)</strong></td>
+          <td>₹92,500</td>
+          <td class="up">▲ +320</td>
+          <td class="up">+0.35%</td>
+          <td><span class="badge badge-up">உயர்வு</span></td>
+        </tr>
+        <tr>
+          <td><strong>கச்சா எண்ணெய் (bbl)</strong></td>
+          <td>$82.40</td>
+          <td class="down">▼ -1.20</td>
+          <td class="down">-1.44%</td>
+          <td><span class="badge badge-down">இறக்கம்</span></td>
+        </tr>
+        <tr>
+          <td><strong>USD → INR</strong></td>
+          <td>₹83.62</td>
+          <td class="neutral">— 0.00</td>
+          <td class="neutral">0.00%</td>
+          <td><span class="badge badge-neutral">நிலையான</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========= NEWS GRID ========= -->
+<section class="section-wrap">
+  <div class="section-header">
+    <h2 class="section-title">🗞 சமீபத்திய செய்திகள்</h2>
+    <a href="#" class="see-all">அனைத்தும் பார்க்க →</a>
+  </div>
+  <div class="news-grid" id="newsGrid">
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="2025 IPL: சென்னை சூப்பர் கிங்ஸ் பலமான அணி"
+      data-content="இந்த ஆண்டு IPL சீசனில் CSK அணி அதிரடியான ஆட்டங்களை வெளிப்படுத்தி வருகிறது. ரிஷப் பண்ட், கோஹ்லி ஆகியோரின் செயல்திறன் இந்தியன் ஃப்ரீமியர் லீக்கை மேலும் சுவாரஸ்யமாக்கியுள்ளது.
+      
+      இந்த சீசனில் CSK 8 போட்டிகளில் 6 வெற்றிகளை கைப்பற்றி அட்டவணையில் 2வது இடத்தில் உள்ளது.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=500&q=80" alt="" />
+        <span class="card-tag">விளையாட்டு</span>
+      </div>
+      <div class="card-body">
+        <h3>2025 IPL: சென்னை சூப்பர் கிங்ஸ் பலமான அணி</h3>
+        <p>இந்த சீசனில் CSK அணி அதிரடியான ஆட்டங்களை வெளிப்படுத்தி வருகிறது...</p>
+        <div class="card-meta">
+          <span>விளையாட்டு</span>
+          <span>3 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="AI புரட்சி: 2025ல் இந்தியாவில் 10 லட்சம் வேலை இழப்பு?"
+      data-content="செயற்கை நுண்ணறிவு (AI) தொழில்நுட்பத்தால் IT துறையில் பெரும் மாற்றங்கள் நிகழ்கின்றன. நிபுணர்கள் கூற்றுப்படி, 2025 இறுதிக்குள் சுமார் 10 லட்சம் IT பணியிடங்கள் AI ஆல் மாற்றப்படலாம்.
+
+      இருப்பினும், AI புதிய வேலைவாய்ப்புகளையும் உருவாக்கும் என நிபுணர்கள் தெரிவிக்கின்றனர்.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=500&q=80" alt="" />
+        <span class="card-tag">தொழில்நுட்பம்</span>
+      </div>
+      <div class="card-body">
+        <h3>AI புரட்சி: 2025ல் இந்தியாவில் 10 லட்சம் வேலை இழப்பு?</h3>
+        <p>செயற்கை நுண்ணறிவால் IT துறையில் பெரும் மாற்றங்கள் நிகழ்கின்றன...</p>
+        <div class="card-meta">
+          <span>தொழில்நுட்பம்</span>
+          <span>5 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="தமிழக வெள்ளம்: 12 மாவட்டங்களில் அதிகபட்ச எச்சரிக்கை"
+      data-content="வடகிழக்கு பருவமழை தீவிரமடைந்ததால் தமிழகத்தில் 12 மாவட்டங்களில் ரெட் அலர்ட் பிறப்பிக்கப்பட்டுள்ளது. சென்னை, குடலூர், கோவை உட்பட பல இடங்களில் கனமழை பெய்கிறது.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&q=80" alt="" />
+        <span class="card-tag tag-red">அவசரம்</span>
+      </div>
+      <div class="card-body">
+        <h3>தமிழக வெள்ளம்: 12 மாவட்டங்களில் அதிகபட்ச எச்சரிக்கை</h3>
+        <p>வடகிழக்கு பருவமழை தீவிரமடைந்ததால் கனமழை எச்சரிக்கை...</p>
+        <div class="card-meta">
+          <span class="urgent">🔴 அவசரம்</span>
+          <span>1 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="கோலிவுட்: விஜய்யின் புதிய படம் OTT வெளியீடு"
+      data-content="நடிகர் விஜய்யின் சமீபத்திய படம் Netflix இல் வெளியாக உள்ளது. படம் தியேட்டரில் 100 கோடி வசூல் செய்த பிறகு, இப்போது OTT உரிமை பெரும் தொகைக்கு விற்கப்பட்டுள்ளது.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80" alt="" />
+        <span class="card-tag">திரைச்செய்தி</span>
+      </div>
+      <div class="card-body">
+        <h3>கோலிவுட்: விஜய்யின் புதிய படம் OTT வெளியீடு</h3>
+        <p>நடிகர் விஜய்யின் சமீபத்திய படம் Netflix இல் வெளியாக உள்ளது...</p>
+        <div class="card-meta">
+          <span>திரைச்செய்தி</span>
+          <span>7 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="சென்னை மெட்ரோ: புதிய நீட்சி திட்டம் அறிவிப்பு"
+      data-content="சென்னை மெட்ரோ ரயில் கார்ப்பரேஷன் புதிய நீட்சி திட்டத்தை அறிவித்துள்ளது. இந்தத் திட்டத்தில் 40 கிமீ புதிய பாதை மற்றும் 35 புதிய நிலையங்கள் உள்ளன.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&q=80" alt="" />
+        <span class="card-tag">நகரம்</span>
+      </div>
+      <div class="card-body">
+        <h3>சென்னை மெட்ரோ: புதிய நீட்சி திட்டம் அறிவிப்பு</h3>
+        <p>40 கிமீ புதிய பாதை மற்றும் 35 புதிய நிலையங்கள்...</p>
+        <div class="card-meta">
+          <span>தமிழ்நாடு</span>
+          <span>9 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="news-card" onclick="openArticleModal(this)"
+      data-title="கல்வி: NEET தேர்வு மாற்றங்கள் — மாணவர்கள் கவலை"
+      data-content="NEET தேர்வின் கட்டமைப்பில் புதிய மாற்றங்கள் அறிவிக்கப்பட்டுள்ளன. கேள்விகளின் எண்ணிக்கை மற்றும் மதிப்பெண் முறை மாற்றப்படும் என்று NMC தெரிவித்துள்ளது.">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=500&q=80" alt="" />
+        <span class="card-tag">கல்வி</span>
+      </div>
+      <div class="card-body">
+        <h3>கல்வி: NEET தேர்வு மாற்றங்கள் — மாணவர்கள் கவலை</h3>
+        <p>NEET தேர்வின் கட்டமைப்பில் புதிய மாற்றங்கள் அறிவிக்கப்பட்டுள்ளன...</p>
+        <div class="card-meta">
+          <span>கல்வி</span>
+          <span>12 மணி முன்பு</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ========= SPORTS TABLE ========= -->
+<section class="section-wrap">
+  <div class="section-header">
+    <h2 class="section-title">🏏 IPL 2025 — புள்ளி அட்டவணை</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table sports-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>அணி</th>
+          <th>போட்டிகள்</th>
+          <th>வெற்றி</th>
+          <th>தோல்வி</th>
+          <th>NR</th>
+          <th>புள்ளிகள்</th>
+          <th>NRR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>1</td>
+          <td><span class="team-badge csk">CSK</span> சென்னை சூப்பர் கிங்ஸ்</td>
+          <td>8</td><td>6</td><td>2</td><td>0</td>
+          <td><strong>12</strong></td><td class="up">+1.245</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><span class="team-badge mi">MI</span> மும்பை இண்டியன்ஸ்</td>
+          <td>8</td><td>5</td><td>3</td><td>0</td>
+          <td><strong>10</strong></td><td class="up">+0.892</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><span class="team-badge rcb">RCB</span> ராயல் சேலஞ்சர்ஸ்</td>
+          <td>8</td><td>5</td><td>3</td><td>0</td>
+          <td><strong>10</strong></td><td class="up">+0.612</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><span class="team-badge kkr">KKR</span> கொல்கத்தா நைட் ரைடர்ஸ்</td>
+          <td>8</td><td>4</td><td>4</td><td>0</td>
+          <td><strong>8</strong></td><td class="neutral">-0.102</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><span class="team-badge dc">DC</span> டெல்லி கேபிடல்ஸ்</td>
+          <td>8</td><td>3</td><td>5</td><td>0</td>
+          <td><strong>6</strong></td><td class="down">-0.445</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========= MODAL: ARTICLE ========= -->
+<div class="modal-overlay" id="articleModal" onclick="closeModal('articleModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('articleModal')">✕</button>
+    <div class="modal-body">
+      <span class="tag tag-blue" style="margin-bottom:12px;display:inline-block;">GokulRecap</span>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-meta">
+        <span>GokulRecap Reporter</span> · <span id="modalTime"></span>
+      </div>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========= MODAL: LOGIN ========= -->
+<div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+  <div class="modal-box login-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="login-header">
+      <div class="logo-icon small">GR</div>
+      <h2>உள்நுழைய</h2>
+      <p>GokulRecap இல் வரவேற்கிறோம்</p>
+    </div>
+    <div class="login-form">
+      <div class="form-group">
+        <label>பயனர் பெயர் / மின்னஞ்சல்</label>
+        <input type="text" id="loginUser" placeholder="உங்கள் பெயரை உள்ளிடுக" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label>கடவுச்சொல்</label>
+        <input type="password" id="loginPass" placeholder="••••••••" class="form-input" />
+      </div>
+      <button class="btn-primary" onclick="doLogin()">உள்நுழைக →</button>
+      <p class="login-note">Demo: எந்த பெயரும் கடவுச்சொல்லும் பயன்படுத்தலாம்</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========= FOOTER ========= -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-icon small">GR</div>
+        <span class="logo-main">GokulRecap</span>
+      </div>
+      <p class="footer-desc">தமிழகம் மற்றும் உலகின் முக்கிய செய்திகளை விரைவாகவும் துல்லியமாகவும் வழங்கும் டிஜிட்டல் செய்தி தளம்.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>பிரிவுகள்</h4>
+      <a href="#">தமிழ்நாடு</a>
+      <a href="#">இந்தியா</a>
+      <a href="#">உலகம்</a>
+      <a href="#">விளையாட்டு</a>
+      <a href="#">திரைச்செய்தி</a>
+    </div>
+    <div class="footer-col">
+      <h4>தொழில்நுட்பம்</h4>
+      <a href="#">AI & Tech</a>
+      <a href="#">சைபர் பாதுகாப்பு</a>
+      <a href="#">மொபைல்</a>
+      <a href="#">தொடக்க நிறுவனங்கள்</a>
+    </div>
+    <div class="footer-col">
+      <h4>நிறுவனம்</h4>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="#">About Us</a>
+      <a href="#">Advertise</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 GokulRecap. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</span>
+    <span>தமிழகத்தில் இருந்து ❤️ உடன் உருவாக்கப்பட்டது</span>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
